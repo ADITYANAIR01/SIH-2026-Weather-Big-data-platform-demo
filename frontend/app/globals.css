@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: #1a232e;
+    --inksoft: #3c4754;
+    --paper: #f7f4ee;
+    --paperdeep: #efeae0;
+    --card: #ffffff;
+    --line: #e4ded0;
+    --cobalt: #2563eb;
+    --cobalt-700: #1b3faa;
+    --saffron: #e8622c;
+    --green: #1e9e67;
+    --bay: #0e7fb0;
+    --hazard: #d92d20;
+    --frost: #3e7fa8;
+    --sand: #c05621;
+    --earth: #8a6b46;
+    --olive: #c2a010;
+    --mists: #7b8794;
+    --dune: #b78a3f;
+    --velvet: #5a4bd1;
+    --muted: #667085;
+    --muted-strong: #475467;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 7rem;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    color-scheme: light;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.18);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cobalt);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .hairline {
+    @apply border-line;
+  }
+
+  .card {
+    @apply rounded-xl border border-line bg-card shadow-soft;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-[11px] font-medium tracking-wide;
+  }
+
+  .kicker {
+    @apply font-mono text-[11px] uppercase tracking-[0.18em] text-muted;
+  }
+
+  .serif-display {
+    @apply font-serif tracking-tight;
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .link-underline {
+    @apply underline decoration-cobalt/40 underline-offset-4 transition-colors hover:decoration-cobalt;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 focus:outline-none focus-visible:ring-2 focus-visible:ring-cobalt/50;
+  }
+
+  .btn-primary {
+    @apply btn bg-cobalt text-white hover:bg-cobalt-600;
+  }
+
+  .btn-secondary {
+    @apply btn border border-line bg-card text-ink hover:bg-paperdeep;
+  }
+
+  .btn-ghost {
+    @apply btn text-muted hover:bg-paperdeep hover:text-ink;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-line bg-card px-3 py-2 text-sm outline-none transition-colors placeholder:text-muted focus:border-cobalt focus:ring-2 focus:ring-cobalt/20;
+  }
+
+  .skeleton {
+    @apply rounded-lg;
+    background: linear-gradient(90deg, var(--paperdeep) 25%, #e7e0d2 37%, var(--paperdeep) 63%);
+    background-size: 400% 100%;
+    animation: skeletonShimmer 1.4s ease-in-out infinite;
+  }
+}
+
+/* ---- MapLibre skin for JanMausam ---- */
+.maplibregl-map {
+  font-family: theme("fontFamily.sans");
+  background: theme("colors.paper");
+}
+
+.maplibregl-canvas {
+  outline: none;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 10px !important;
+  border: 1px solid theme("colors.line") !important;
+  box-shadow: 0 1px 3px rgba(26, 35, 46, 0.12) !important;
+}
+
+.maplibregl-ctrl-group button {
+  color: theme("colors.ink");
+}
+
+.maplibregl-ctrl-group button:hover {
+  background-color: theme("colors.paperdeep");
+}
+
+.maplibregl-ctrl-attrib {
+  font-size: 9px !important;
+  background: rgba(247, 244, 238, 0.82) !important;
+}
+
+.maplibregl-ctrl-attrib a {
+  color: theme("colors.ink");
+}
+
+.maplibregl-popup-content {
+  border-radius: 12px;
+  box-shadow: 0 8px 30px -6px rgba(26, 35, 46, 0.28);
+  padding: 0;
+}
+
+/* Hover-pin preview: no arrow, no pointer capture (prevents hover flicker) */
+.maplibregl-popup.pin-hover {
+  pointer-events: none;
+}
+
+.maplibregl-popup.pin-hover .maplibregl-popup-content {
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.maplibregl-popup.pin-hover .maplibregl-popup-tip {
+  display: none;
+}
+
+/* ---- Editorial scrollbars ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: theme("colors.line") transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: theme("colors.line");
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.muted");
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---- Motion preference: zero the custom animations ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,111 @@
+# JanMausam — singular compose file at the repo root. One command launches everything:
+#   docker compose up -d --build
+#
+# Services:
+#   db         Postgres + PostGIS 16         (5432)
+#   redis      Redis 7 for dedup + pub/sub
+#   api        FastAPI ingest + triage/publish pipeline (8000)
+#   simulator  replays 115 Indian monsoon reports, endless live feed
+#   web        Next.js JanMausam desk, live mode via server proxy (3000)
+#
+# OPS NOTES (SRE-owned):
+#   - Every service gets restart: unless-stopped so a host/engine restart self-heals.
+#   - api has a container healthcheck (python urllib against /healthz); web and
+#     simulator wait for service_healthy, so the proxy/feed never race a cold API.
+#   - json-file logs are capped at 10 MB x 3 per service — simulator runs forever
+#     and would otherwise grow logs unbounded during hour-long sessions.
+
+name: janmausam
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    environment:
+      POSTGRES_DB: weather
+      POSTGRES_USER: weather
+      POSTGRES_PASSWORD: weather
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U weather -d weather"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    logging: *default-logging
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    logging: *default-logging
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      WEATHER_DATABASE_URL: postgresql+asyncpg://weather:weather@db:5432/weather
+      WEATHER_REDIS_URL: redis://redis:6379/0
+      WEATHER_ADMIN_TOKEN: sih2026-demo-admin-token
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    restart: unless-stopped
+    logging: *default-logging
+
+  simulator:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: python -m app.stream_simulator
+    environment:
+      WEATHER_SIM_API_BASE: http://api:8000
+      WEATHER_ADMIN_TOKEN: sih2026-demo-admin-token
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_DATA_MODE: live
+    environment:
+      BACKEND_BASE_URL: http://api:8000
+      ADMIN_TOKEN: sih2026-demo-admin-token
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    logging: *default-logging
+
+volumes:
+  pgdata:

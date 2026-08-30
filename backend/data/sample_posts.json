@@ -1,0 +1,692 @@
+[
+  {
+    "text": "Bhai log please help! Waterlogging full on Eastern Express Highway near Powai, cars stuck up to bonnet. Mumbai flood situation serious.",
+    "lat": 19.1203,
+    "lon": 72.9047,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Flood: BMC rescue boats deployed at Powai and Bhandup, Mithi river overflow. Mumbai inundation worsening every hour.",
+    "lat": 19.1218,
+    "lon": 72.907,
+    "source": "facebook"
+  },
+  {
+    "text": "Rescue boats moving at Powai marina, lake water crossing road, several cars abandoned at the ghat",
+    "lat": 19.12,
+    "lon": 72.906,
+    "source": "twitter"
+  },
+  {
+    "text": "Evening high tide flooding Sion low line again, Mithi water at BKC railing edge, many stranded in offices",
+    "lat": 19.121,
+    "lon": 72.905,
+    "source": "facebook"
+  },
+  {
+    "text": "Severe waterlogging at Dadar, flood water entered ground floor shops. Mumbai monsoon flood situation critical.",
+    "lat": 19.0176,
+    "lon": 72.8437,
+    "source": "twitter"
+  },
+  {
+    "text": "Water level crossing danger mark at Mithi river, low lying Bandra-Kurla Complex flooded. Mumbai residents warned to evacuate.",
+    "lat": 19.0653,
+    "lon": 72.8665,
+    "source": "sms"
+  },
+  {
+    "text": "Flood alert: Andheri subway closed, water on tracks near Andheri station. Public transport badly hit in Mumbai.",
+    "lat": 19.1197,
+    "lon": 72.8466,
+    "source": "twitter"
+  },
+  {
+    "text": "Metro water released from Chembarambakkam, Adyar river children's park flooded. Chennai rescue teams on standby.",
+    "lat": 13.0067,
+    "lon": 80.2114,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Adyar river flooding at Kotturpuram, children's park waterlogged, Chennai residents asked to stay away",
+    "lat": 13.0072,
+    "lon": 80.209,
+    "source": "facebook"
+  },
+  {
+    "text": "Boats out at Madhya Kailash road, Adyar tributary overflow, children's park fully underwater",
+    "lat": 13.0075,
+    "lon": 80.2085,
+    "source": "sms"
+  },
+  {
+    "text": "Adyar overbridge to Besant Nagar water gushing, cars turning back at Sathyam signal",
+    "lat": 13.0069,
+    "lon": 80.21,
+    "source": "twitter"
+  },
+  {
+    "text": "Mylapore flooding with rainwater entering homes, Chennai corporation pumping stations overwhelmed.",
+    "lat": 13.0339,
+    "lon": 80.2691,
+    "source": "twitter"
+  },
+  {
+    "text": "Heatwave alert for Delhi: maximum temperature above 44 degrees Celsius, IMD issued orange warning today.",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "source": "twitter"
+  },
+  {
+    "text": "Scorching heat in central Delhi, 46.2C at ITO, RML hospital seeing heat exhaustion cases",
+    "lat": 28.6145,
+    "lon": 77.21,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Automated weather station clocked 46C at ITO crossing at 2pm, no shade for traffic police",
+    "lat": 28.615,
+    "lon": 77.211,
+    "source": "twitter"
+  },
+  {
+    "text": "India Gate lawns deserted by 3pm, 46C recorded, pedestrians spraying water at each other",
+    "lat": 28.6148,
+    "lon": 77.2095,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Heatwave conditions persist across NCR, IMD extends heatwave warning for Delhi and Haryana districts",
+    "lat": 28.5934,
+    "lon": 77.1125,
+    "source": "twitter"
+  },
+  {
+    "text": "Alert: Heatwave in Gurugram and Faridabad, maximum temperatures touching 45C, school timings changed",
+    "lat": 28.4595,
+    "lon": 77.0266,
+    "source": "sms"
+  },
+  {
+    "text": "Cyclone coming! Very severe cyclonic storm approached Odisha coast near Puri, fishermen told not to go to sea.",
+    "lat": 19.8135,
+    "lon": 85.8315,
+    "source": "sms"
+  },
+  {
+    "text": "Cyclonic storm landfall expected near Puri by evening, huge waves at Puri beach, district administration on alert.",
+    "lat": 19.8128,
+    "lon": 85.8308,
+    "source": "twitter"
+  },
+  {
+    "text": "Puri beach front shops shuttered as cyclone landfall nears, waves crashing onto Seabird road",
+    "lat": 19.8115,
+    "lon": 85.8295,
+    "source": "facebook"
+  },
+  {
+    "text": "Temple town Puri in cyclone hold, sea breeze roaring, banner district collector advisory out",
+    "lat": 19.8098,
+    "lon": 85.833,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Cyclone warning: heavy rain and cyclone wind speed 100 kmph hit Chilika lake area, villagers moved to shelters.",
+    "lat": 19.7754,
+    "lon": 85.3208,
+    "source": "facebook"
+  },
+  {
+    "text": "ODRAF teams deployed as cyclone makes landfall near Konark, trees uprooted and power lines down in coastal Odisha.",
+    "lat": 19.892,
+    "lon": 86.1138,
+    "source": "twitter"
+  },
+  {
+    "text": "All shops closed in Bhubaneswar as cyclone wind and rain lash the city, flights and trains cancelled.",
+    "lat": 20.2961,
+    "lon": 85.8245,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Landslide in Guwahati: mudslide after heavy rain blocked highway near Lokhra area, several houses affected.",
+    "lat": 26.1527,
+    "lon": 91.7114,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Heavy rain triggered landslide on NH-27 in Nagaland border near Dimapur, traffic completely stopped.",
+    "lat": 25.9098,
+    "lon": 93.7325,
+    "source": "twitter"
+  },
+  {
+    "text": "Landslide warning for Darjeeling hills, Gorkhaland area, NH-10 blocked due to rockfall after monsoon rain.",
+    "lat": 27.036,
+    "lon": 88.2627,
+    "source": "facebook"
+  },
+  {
+    "text": "Hailstorm in Bengaluru! Marble sized hail at Whitefield and KR Puram, cars damaged, weather turned suddenly dark.",
+    "lat": 12.9716,
+    "lon": 77.5946,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Thunderstorm with lightning and hail continuing at Whitefield, Bengaluru; roadside shelters blown",
+    "lat": 12.972,
+    "lon": 77.5952,
+    "source": "twitter"
+  },
+  {
+    "text": "Hail sheet on ITPL road Whitefield, cars sliding on ice pellets, storm cell right overhead",
+    "lat": 12.9722,
+    "lon": 77.594,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Ice pellets piling on Pattandur Agrahara, Whitefield signals out, Ola drivers pulling over",
+    "lat": 12.973,
+    "lon": 77.5948,
+    "source": "twitter"
+  },
+  {
+    "text": "Sudden hailstorm pelting south Bengaluru, low visibility due to heavy rain and thunder, stay indoors.",
+    "lat": 12.89,
+    "lon": 77.5667,
+    "source": "sms"
+  },
+  {
+    "text": "Dust storm in Jaisalmer! Huge dust wall approaching city, visibility near zero, highway closed for safety.",
+    "lat": 26.9157,
+    "lon": 70.9083,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Severe dust storm hit Jodhpur with wind speed 60 kmph, sand covering roads and flights diverted from airport.",
+    "lat": 26.2389,
+    "lon": 73.0243,
+    "source": "facebook"
+  },
+  {
+    "text": "Another dust storm moving towards Barmer district, travellers advised to avoid open roads in Rajasthan.",
+    "lat": 25.752,
+    "lon": 71.3967,
+    "source": "twitter"
+  },
+  {
+    "text": "Delhi pollution: dense fog and smog cover the city this morning, AQI crossed 400, visibility at Palam dropped to 200m.",
+    "lat": 28.5665,
+    "lon": 77.1031,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Smog layer thick over Ghaziabad and Noida, schools shifting to online classes due to toxic AQI levels.",
+    "lat": 28.6692,
+    "lon": 77.4538,
+    "source": "twitter"
+  },
+  {
+    "text": "Fog alert: 12 trains delayed as dense fog blankets Delhi region, minimum visibility 100m",
+    "lat": 28.5793,
+    "lon": 77.184,
+    "source": "sms"
+  },
+  {
+    "text": "Dry spell continues in Marathwada, drought like conditions in Beed district, water tankers supplying villages since two months.",
+    "lat": 18.9892,
+    "lon": 75.7564,
+    "source": "facebook"
+  },
+  {
+    "text": "Drought situation in Vidarbha districts of Maharashtra, reservoir levels at alarming low, farmers worried for kharif crop.",
+    "lat": 21.1458,
+    "lon": 79.0882,
+    "source": "twitter"
+  },
+  {
+    "text": "Monsoon deficiency leads to drought alert in Bundelkhand region, wells drying up in drought affected villages",
+    "lat": 24.6639,
+    "lon": 78.9792,
+    "source": "sms"
+  },
+  {
+    "text": "Cold wave grips Srinagar: minimum temperature minus 5 degrees, Dal lake froze at edges, schools delayed in Kashmir valley.",
+    "lat": 34.0837,
+    "lon": 74.7973,
+    "source": "twitter"
+  },
+  {
+    "text": "Cold wave alert for Ladakh, Leh recorded minus 12 degrees, roads closed at higher passes due to ice.",
+    "lat": 34.1526,
+    "lon": 77.5771,
+    "source": "facebook"
+  },
+  {
+    "text": "Severe cold wave in Gulmarg, tourists enjoying heavy snowfall, ski resort open at full capacity.",
+    "lat": 34.0384,
+    "lon": 74.3863,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Waterlogging on Sarjapur Road after heavy rain, Bengaluru traffic jammed for 3 kilometers, cab drivers cancelling rides.",
+    "lat": 12.9023,
+    "lon": 77.7229,
+    "source": "twitter"
+  },
+  {
+    "text": "Flooding in Kochi: rain continues, low lying areas of Mattancherry under water, Kochi metro services normal.",
+    "lat": 9.9312,
+    "lon": 76.2673,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Hailstorm damaged crops in Solapur district, pea sized hail with gusty winds, farmers assessing losses.",
+    "lat": 17.6599,
+    "lon": 75.9064,
+    "source": "sms"
+  },
+  {
+    "text": "Dense fog low visibility in Amritsar Patti town, poor visibility on NH-1, drive carefully Punjab.",
+    "lat": 31.634,
+    "lon": 74.8723,
+    "source": "twitter"
+  },
+  {
+    "text": "Heatwave warning extended for Vidarbha Nagpur, 45.4C maximum, citizens advised to stay hydrated,",
+    "lat": 21.1458,
+    "lon": 79.0882,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Cyclone alert for Andhra coast, Visakhapatnam fishermen returning to shore after IMD warning of rough seas.",
+    "lat": 17.6868,
+    "lon": 83.2185,
+    "source": "sms"
+  },
+  {
+    "text": "Cloudburst near Kedarnath hills, flash flood warning issued for downstream areas of Rudraprayag, Uttarakhand.",
+    "lat": 30.7347,
+    "lon": 79.0669,
+    "source": "twitter"
+  },
+  {
+    "text": "Landslide risk high in Varkala and Munnar hills, district collector urges tourists to avoid travel during rain, Kerala.",
+    "lat": 10.0889,
+    "lon": 77.0595,
+    "source": "facebook"
+  },
+  {
+    "text": "River Brahmaputra near danger level at Dibrugarh, flood fear in Assam, banks on alert for embankment breach.",
+    "lat": 27.4728,
+    "lon": 94.912,
+    "source": "sms"
+  },
+  {
+    "text": "Just saw huge dust storm front rolling in from Pakistan side over Bikaner, sky turned orange. Trying to find shelter!",
+    "lat": 28.0229,
+    "lon": 73.3119,
+    "source": "twitter"
+  },
+  {
+    "text": "Choked! Smog so thick over Patna you can barely see Ganga river from Gandhi Maidan, AQI off charts",
+    "lat": 25.5941,
+    "lon": 85.1376,
+    "source": "twitter"
+  },
+  {
+    "text": "Water reservoir at 12% capacity, Chandigarh departments starting water rationing next week, drought conditions reported",
+    "lat": 30.7333,
+    "lon": 76.7794,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Cyclone Yaas like storm strengthening in Bay of Bengal near Paradeep, we are preparing coastal Odisha villages for evacuation",
+    "lat": 20.2704,
+    "lon": 86.6684,
+    "source": "facebook"
+  },
+  {
+    "text": "Landslide on National Highway near Chamba district Himachal, rocks fallen on road after night rain, traffic stopped",
+    "lat": 32.5532,
+    "lon": 76.1263,
+    "source": "sms"
+  },
+  {
+    "text": "Gully flooding in Nalasopara, water entered low-income homes, Vasai-Virar area under 3 feet water",
+    "lat": 19.4156,
+    "lon": 72.8611,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Remark: Dehradun flooded after cloudburst on Mussoorie ridge, jhuggi clusters swept in Tapovan",
+    "lat": 30.2459,
+    "lon": 78.1464,
+    "source": "facebook"
+  },
+  {
+    "text": "Flood in Ahmedabad: Sabarmati river flowing above danger mark, Khokhra bypass closed",
+    "lat": 23.0225,
+    "lon": 72.5714,
+    "source": "twitter"
+  },
+  {
+    "text": "Vijayawada flooded after Budameru breach, low areas of Ajit Singh Nagar submerged",
+    "lat": 16.5062,
+    "lon": 80.648,
+    "source": "sms"
+  },
+  {
+    "text": "Waterlogging in Indore after 2 hour downpour, AB Road jammed, manholes overflow in Palasia",
+    "lat": 22.7196,
+    "lon": 75.8577,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Bihar flood alert: Kosi river swell at Khagaria, nim ghats evacuated, relief camps being set up",
+    "lat": 25.5074,
+    "lon": 86.4798,
+    "source": "twitter"
+  },
+  {
+    "text": "Srinagar waterlogged after unseasonal rain, Rajbagh to Dalgate streets knee deep",
+    "lat": 34.0837,
+    "lon": 74.7973,
+    "source": "facebook"
+  },
+  {
+    "text": "Heatwave: Bikaner at 47.1C, second hottest day, medical off roads periods advised",
+    "lat": 28.0229,
+    "lon": 73.3119,
+    "source": "sms"
+  },
+  {
+    "text": "Extreme heat in Ganganagar, max temp 48C, IMD issues severe heatwave warning",
+    "lat": 29.9038,
+    "lon": 73.8772,
+    "source": "twitter"
+  },
+  {
+    "text": "Heatwave conditions in Bundelkhand Jhansi hitting 46C, heat stroke cases in hospitals rising",
+    "lat": 25.4484,
+    "lon": 78.5685,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Surat sweltering at 42C with humidity, heatwave advisory issued for Gujarat coastal districts",
+    "lat": 21.1702,
+    "lon": 72.8311,
+    "source": "twitter"
+  },
+  {
+    "text": "Delhi airport ground temps 50C in afternoon, heatwave in NCR, airport staff given water breaks",
+    "lat": 28.5562,
+    "lon": 77.1,
+    "source": "facebook"
+  },
+  {
+    "text": "Cyclone watch: depression in Bay of Bengal intensifying near Machilipatnam, Andhra coast rains",
+    "lat": 16.1875,
+    "lon": 81.138,
+    "source": "sms"
+  },
+  {
+    "text": "Gales at 110 kmph hit Gopalpur coast as storm brews, Odisha evacuates coastal huts",
+    "lat": 19.2586,
+    "lon": 84.8987,
+    "source": "twitter"
+  },
+  {
+    "text": "Cyclone route turns towards Sundarbans, West Bengal districts on cyclone alert, schools shut till weekend",
+    "lat": 21.9497,
+    "lon": 88.9,
+    "source": "facebook"
+  },
+  {
+    "text": "Visakhapatnam coast rough seas with 2m tides before cyclone, fishermen back onshore",
+    "lat": 17.7147,
+    "lon": 83.2665,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Cyclone shelters opened at Kakinada, 1.2 lakh to be shifted as storm nears Andhra coast",
+    "lat": 16.9891,
+    "lon": 82.2475,
+    "source": "sms"
+  },
+  {
+    "text": "Landslide in Wayanad! Hill side gave way near Kalpetta after relentless rain, road to Mysuru cut off",
+    "lat": 11.6186,
+    "lon": 76.0824,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Mudslide buried two shops at Nainital Mall Road, district admin on spot for rescue",
+    "lat": 29.3919,
+    "lon": 79.4543,
+    "source": "facebook"
+  },
+  {
+    "text": "Landslide blocks Kalka-Shimla highway at Solan after rain, passengers stranded 4 hours",
+    "lat": 30.9009,
+    "lon": 77.0996,
+    "source": "twitter"
+  },
+  {
+    "text": "Rockfall on Jammu-Srinagar NH44 near Batote, heavy stones, one lane traffic resumed",
+    "lat": 33.0933,
+    "lon": 75.3038,
+    "source": "sms"
+  },
+  {
+    "text": "Landslide warning in Idukki, Munnar to Marayoor road closed as boulders roll, Kerala",
+    "lat": 10.0889,
+    "lon": 77.0595,
+    "source": "twitter"
+  },
+  {
+    "text": "Hailstorm lashed Meerut with wind, apple-sized hail damaged crops in 12 villages",
+    "lat": 28.9845,
+    "lon": 77.706,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Thunderstorm with squall in Chandigarh, hoarding collapsed near Sukhna, two injured",
+    "lat": 30.7333,
+    "lon": 76.7794,
+    "source": "twitter"
+  },
+  {
+    "text": "Violent hailstorm in Nagpur suburb, cars dented, orange warning from IMD",
+    "lat": 21.1458,
+    "lon": 79.0882,
+    "source": "sms"
+  },
+  {
+    "text": "Lightning strikes killed 3 farmers near Bhopal fields, IMD urges thunderstorm advisory",
+    "lat": 23.2599,
+    "lon": 77.4126,
+    "source": "facebook"
+  },
+  {
+    "text": "Grape sized hail at Nashik vineyard belt, crop insurance claims expected to rise",
+    "lat": 20.0,
+    "lon": 73.7803,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Dust storm at Hanumangarh! Visibility under 50m, wind 70 kmph, power poles down",
+    "lat": 29.5818,
+    "lon": 74.3216,
+    "source": "twitter"
+  },
+  {
+    "text": "Another severe dust storm in Jodhpur kai outskirts, airport diverted flights again, visibility 40m",
+    "lat": 26.2389,
+    "lon": 73.0243,
+    "source": "sms"
+  },
+  {
+    "text": "Dust storm wall at Jodhpur Mandore, trees flattened, visibility 30m, hold off travel",
+    "lat": 26.2396,
+    "lon": 73.025,
+    "source": "twitter"
+  },
+  {
+    "text": "Dust front moving east past Jodhpur city, sand pelting buses on the Udaipur highway, visibility closing in",
+    "lat": 26.2381,
+    "lon": 73.0255,
+    "source": "facebook"
+  },
+  {
+    "text": "Sandstorm hit Sri Ganganagar border belt, farmers rushed cattle to shelter, red alert",
+    "lat": 29.9038,
+    "lon": 73.8772,
+    "source": "facebook"
+  },
+  {
+    "text": "Dust storm winds uprooted trees in Hisar, Har, district control lights on alert",
+    "lat": 29.1492,
+    "lon": 75.7217,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Smog emergency: AQI 487 in Delhi, GRAP Stage IV likely, odd-even to return",
+    "lat": 28.6139,
+    "lon": 77.209,
+    "source": "twitter"
+  },
+  {
+    "text": "Fog so thick at Amritsar airport that flights diverted, fog advisory for Punjab till 11am",
+    "lat": 31.634,
+    "lon": 74.8723,
+    "source": "sms"
+  },
+  {
+    "text": "Hazy smog over Kolkata early morning, AQI touches 280, doctors advise masks for children",
+    "lat": 22.5726,
+    "lon": 88.3639,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Dense fog at IGI Delhi, CAT IIIB operations, 40 flights delayed, visibility 75m",
+    "lat": 28.566,
+    "lon": 77.104,
+    "source": "facebook"
+  },
+  {
+    "text": "Visibility zero on IGI runway 10, departures held, ground crew fog bound on tarmac",
+    "lat": 28.5648,
+    "lon": 77.102,
+    "source": "facebook"
+  },
+  {
+    "text": "Fog bank shifting over Delhi Vasant Kunj, aircraft holding in air, runway lights barely visible",
+    "lat": 28.565,
+    "lon": 77.1015,
+    "source": "sms"
+  },
+  {
+    "text": "Smog from farm stubble reaches Noida office park, people wearing N95 in air conditioned towers",
+    "lat": 28.5355,
+    "lon": 77.391,
+    "source": "twitter"
+  },
+  {
+    "text": "Drought: Marathwada rains 40% below normal, tomato and onion fields wilting",
+    "lat": 19.163,
+    "lon": 77.319,
+    "source": "facebook"
+  },
+  {
+    "text": "Drought alarm in Kutch, wells 100 feet deep but dry, cattle being sent to gaushalas",
+    "lat": 23.7334,
+    "lon": 69.8597,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Monsoon breaks in Ladakh causing deficit, drinking water shortage reported in Kargil villages",
+    "lat": 34.5577,
+    "lon": 76.1954,
+    "source": "sms"
+  },
+  {
+    "text": "Dry condition in Vidarbha threatens cotton, farmers demand drought relief package",
+    "lat": 20.5937,
+    "lon": 78.9629,
+    "source": "twitter"
+  },
+  {
+    "text": "Rayalaseema facing acute drought, Krishna river delta area at 30% of storage",
+    "lat": 15.3173,
+    "lon": 78.3817,
+    "source": "twitter"
+  },
+  {
+    "text": "Cold wave: Manali minus 8, Beas river partially frozen, tourists stranded near Rohtang",
+    "lat": 32.2396,
+    "lon": 77.1887,
+    "source": "facebook"
+  },
+  {
+    "text": "Cold wave in Shimla, temperature dropped to minus 1, schools delay starts in Himachal",
+    "lat": 31.1048,
+    "lon": 77.1734,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Frigid morning in Leh, minus 15C, fuel lines frozen in petrol pumps",
+    "lat": 34.1526,
+    "lon": 77.5771,
+    "source": "twitter"
+  },
+  {
+    "text": "Cold wave alert for Haryana Jind, minimum 0.9C, NDRF teams stand by for heater camps",
+    "lat": 29.3161,
+    "lon": 76.3141,
+    "source": "sms"
+  },
+  {
+    "text": "Dense cold wave fog at Pathankot army station, movement restricted till 9am",
+    "lat": 32.2643,
+    "lon": 75.6521,
+    "source": "facebook"
+  },
+  {
+    "text": "Dal lake iced over at edges again this morning, Srinagar at minus 5, shikara boats still running for tourists",
+    "lat": 34.0837,
+    "lon": 74.798,
+    "source": "facebook"
+  },
+  {
+    "text": "Srinagar minus 5.2C at dawn, Dal houseboats frost covered, thin mist over city",
+    "lat": 34.0842,
+    "lon": 74.7965,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Residents wake to frozen windscreen layer across Srinagar city, drainage ice sheets on houseboat lungis",
+    "lat": 34.084,
+    "lon": 74.7985,
+    "source": "twitter"
+  },
+  {
+    "text": "Hulking hailstones in Nagpur Khamla area, car windshields cracked, IMD says hailstorm likely again tonight",
+    "lat": 21.1412,
+    "lon": 79.086,
+    "source": "citizen_app"
+  },
+  {
+    "text": "Another landslide at Lokhra bypass Guwahati, stretch of NH blocked again, SDRF teams clearing debris",
+    "lat": 26.1524,
+    "lon": 91.7118,
+    "source": "twitter"
+  },
+  {
+    "text": "Cyclone strengthening near Paradeep port, ODRAF asking fishing villages to move, waves already 3m high",
+    "lat": 20.272,
+    "lon": 86.67,
+    "source": "sms"
+  }
+]
