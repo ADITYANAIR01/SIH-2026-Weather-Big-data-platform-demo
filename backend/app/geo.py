@@ -11,7 +11,7 @@ from functools import lru_cache
 
 from .config import settings
 
-INDIA_BBOX = {"min_lng": 68.1, "min_lat": 6.5, "max_lng": 97.4, "max_lat": 35.5}
+INDIA_BBOX = {"min_lng": 68.1, "min_lat": 6.5, "max_lng": 97.4, "max_lat": 34.0}
 
 
 def in_india_bounds(lat: float, lon: float) -> bool:

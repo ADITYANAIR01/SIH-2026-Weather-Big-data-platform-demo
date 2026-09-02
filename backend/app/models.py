@@ -96,7 +96,10 @@ class Report(Base):
     def to_geojson_feature(self, excerpt_len: int = 140) -> dict:
         excerpt = (self.text or "").strip().replace("\n", " ")
         if len(excerpt) > excerpt_len:
-            excerpt = excerpt[: excerpt_len].rsplit(" ", 1)[0] + "…"
+            truncated = excerpt[:excerpt_len]
+            if len(truncated.rsplit(" ", 1)[0]) + 1 > excerpt_len:
+                truncated = truncated[: excerpt_len - 1]
+            excerpt = truncated.rsplit(" ", 1)[0] + "…"
         return {
             "type": "Feature",
             "geometry": {
