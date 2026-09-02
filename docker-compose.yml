@@ -6,7 +6,7 @@
 #   redis      Redis 7 for dedup + pub/sub
 #   api        FastAPI ingest + triage/publish pipeline (8000)
 #   simulator  replays 115 Indian monsoon reports, endless live feed
-#   web        Next.js JanMausam desk, live mode via server proxy (3000)
+#   web        Next.js JanMausam desk, live mode via server proxy (3000 in the container)
 #
 # OPS NOTES (SRE-owned):
 #   - Every service gets restart: unless-stopped so a host/engine restart self-heals.
@@ -37,8 +37,6 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
-    ports:
-      - "5432:5432"
     restart: unless-stopped
     logging: *default-logging
 
@@ -59,14 +57,12 @@ services:
     environment:
       WEATHER_DATABASE_URL: postgresql+asyncpg://weather:weather@db:5432/weather
       WEATHER_REDIS_URL: redis://redis:6379/0
-      WEATHER_ADMIN_TOKEN: sih2026-demo-admin-token
+      WEATHER_ADMIN_TOKEN: ${WEATHER_ADMIN_TOKEN:-sih2026-demo-admin-token}
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
-    ports:
-      - "8000:8000"
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/healthz', timeout=3)"]
       interval: 5s
@@ -83,7 +79,7 @@ services:
     command: python -m app.stream_simulator
     environment:
       WEATHER_SIM_API_BASE: http://api:8000
-      WEATHER_ADMIN_TOKEN: sih2026-demo-admin-token
+      WEATHER_ADMIN_TOKEN: ${WEATHER_ADMIN_TOKEN:-sih2026-demo-admin-token}
     depends_on:
       api:
         condition: service_healthy
@@ -98,12 +94,13 @@ services:
         NEXT_PUBLIC_DATA_MODE: live
     environment:
       BACKEND_BASE_URL: http://api:8000
-      ADMIN_TOKEN: sih2026-demo-admin-token
+      ADMIN_TOKEN: ${WEATHER_ADMIN_TOKEN:-sih2026-demo-admin-token}
     depends_on:
       api:
         condition: service_healthy
     ports:
-      - "30001:3000"
+      # Use WEB_PORT=80 on EC2 for http://<elastic-ip>/, or leave the local default.
+      - "${WEB_PORT:-3000}:3000"
     restart: unless-stopped
     logging: *default-logging
 
