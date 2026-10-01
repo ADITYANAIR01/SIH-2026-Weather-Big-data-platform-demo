@@ -172,3 +172,27 @@ The agent should **not** pick one automatically — present all proposals clearl
 6. Frontend: polish pass — animations, empty/loading states, responsive behavior
 7. Integration: swap frontend from mock to live data, verify all acceptance criteria
 8. If time remains: reintroduce Kafka/Celery/PySpark as additive layers — no existing component needs to change
+
+---
+
+## 6. AWS Infrastructure — Deployed (2026-10-01)
+
+Created via **AWS CLI** in `ap-south-1` (account `121490076448`), not CDK. Live URL: `https://weather.adityanair.tech`.
+
+| Resource | Value |
+|---|---|
+| VPC | `vpc-06e24ef658b421f32`, `10.42.0.0/16`, `Name=janmausam-vpc`, tags `Project=janmausam` |
+| Subnets | `subnet-068ac3730d1c46546` (`10.42.1.0/24`, ap-south-1a, `janmausam-public-1a`), `subnet-0b7d076d743995373` (`10.42.2.0/24`, ap-south-1b, `janmausam-public-1b`) |
+| Internet Gateway | `igw-0c4039c348d190ee3` (`janmausam-igw`), attached to VPC |
+| Route Table | `rtb-0c13cb6553c4fc88e` (`janmausam-public-rt`), `0.0.0.0/0 → igw-0c4039c348d190ee3`, both subnets associated |
+| Security Group | `sg-0aaf97e66b01a7362` (`janmausam-web-sg`): inbound tcp/22, tcp/80, tcp/443 from `0.0.0.0/0`; egress all |
+| EC2 instance | `i-0e3122586ca80b941` (`janmausam-web`), `t3.small`, AL2023 AMI `ami-08e3b3155fc937a94`, 30 GiB gp3, AZ `ap-south-1a` |
+| Key pair | AWS: `JANMAUSAM-Key Pair`; local: `JANMAUSAM-Key Pair.pem` (move out of repo / gitignore `*.pem`) |
+| Elastic IP | `eipalloc-081fa394eedd8b64c` = **`13.126.179.176`**, associated `eipassoc-044044a6a0adfe84b` |
+| DNS record (external .tech) | `A weather.adityanair.tech → 13.126.179.176`, TTL Auto/300. No CNAME needed. |
+| TLS | Caddy v2.11.6 (`/usr/bin/caddy`, `/etc/caddy/Caddyfile`) auto-HTTPS → `reverse_proxy 127.0.0.1:3000`; cert issued via Let's Encrypt |
+| Admin token | `/opt/janmausam/admin-token.txt` on EC2 (chmod 600); web env `ADMIN_TOKEN`, api/simulator env `WEATHER_ADMIN_TOKEN` |
+
+UserData/host setup: Docker 25.0.14 + Compose v5.5.1, docker-buildx v0.37.2, 2 GiB swap `/swapfile`, Caddy service enabled, app repo at `/opt/janmausam/app` (`docker compose up -d`), `.env` has `WEATHER_ADMIN_TOKEN` + `WEB_PORT=3000`.
+
+Post-deploy state: `janmausam-db-1`, `janmausam-redis-1`, `janmausam-api-1` healthy; `janmausam-simulator-1` running; `janmausam-web-1` serving on `:3000`; public API `GET /api/v1/public/clusters` returns 59 verified features at last check.
