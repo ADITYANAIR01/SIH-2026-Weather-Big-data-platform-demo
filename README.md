@@ -48,13 +48,37 @@ Redis, the FastAPI pipeline, the stream simulator, and the Next.js web app:
 
 | Service    | Port  | Purpose                                    |
 |------------|-------|--------------------------------------------|
-| api        | 8000  | ingest, trust-scoring, triage, publishing  |
-| web        | 3000  | JanMausam public desk + Desk Console (live)|
+| api        | internal | ingest, trust-scoring, triage, publishing |
+| web        | 3000 (configurable) | JanMausam public desk + Desk Console (live) |
 | simulator  | —     | replays 115 Indian reports, endless feed   |
-| db / redis | 5432  | PostGIS store, dedup + pub/sub             |
+| db / redis | internal | PostGIS store, dedup + pub/sub             |
 
 Public UI: http://localhost:3000 · Desk: http://localhost:3000/admin
-API: http://localhost:8000 · Desk token (demo): `sih2026-demo-admin-token`
+
+The API, database, and Redis ports are intentionally private to the Compose
+network. The browser uses the Next.js server proxy, so only the web port needs
+to be allowed through a host firewall or cloud security group.
+
+## Deploy on AWS EC2 with an Elastic IP
+
+1. Install Docker Compose on the EC2 instance and clone this repository.
+2. Allow inbound TCP `80` in the instance security group (and the local
+  firewall, if enabled). Do not open `5432` or `6379` publicly.
+3. Start the stack on port 80:
+
+```bash
+WEB_PORT=80 docker compose up -d --build
+```
+
+Then open `http://<elastic-ip>/` and `http://<elastic-ip>/admin`. Set a private
+admin token before starting the stack when this is more than a disposable demo:
+
+```bash
+export WEATHER_ADMIN_TOKEN='replace-with-a-long-random-value'
+WEB_PORT=80 docker compose up -d --build
+```
+
+For local development, omit `WEB_PORT` and use port 3000 as shown above.
 
 The web app runs in **live mode** against the co-located backend; the simulator
 resets its dedup canvas per pass so a live demo keeps producing verified pins.
