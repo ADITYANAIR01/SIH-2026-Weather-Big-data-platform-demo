@@ -3,6 +3,74 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { ClusterCollection, DeskStats, Region, Report, EventType, ReportStatus } from "./types";
 
+const DATA_MODE = process.env.NEXT_PUBLIC_DATA_MODE === "live" ? "live" : "mock";
+
+type BackendFeature = {
+  type: "Feature";
+  geometry: { type: "Point"; coordinates: [number, number] };
+  properties: Record<string, unknown>;
+};
+
+function normalizeEventType(value: unknown): EventType | null {
+  const aliases: Record<string, EventType> = {
+    flooding: "flood",
+    flood: "flood",
+    cyclone: "cyclone",
+    heatwave: "heatwave",
+    cold_wave: "coldwave",
+    coldwave: "coldwave",
+    thunderstorm_hailstorm: "thunderstorm",
+    thunderstorm: "thunderstorm",
+    dust_storm: "dust_storm",
+    fog_smog: "fog",
+    fog: "fog",
+    landslide: "landslide",
+    drought: "drought",
+  };
+  return typeof value === "string" ? aliases[value] ?? null : null;
+}
+
+function normalizeFeature(feature: BackendFeature): ClusterCollection["features"][number] {
+  const p = feature.properties;
+  const eventType = normalizeEventType(p.event_type);
+  return {
+    type: "Feature",
+    geometry: feature.geometry,
+    properties: {
+      id: String(p.id ?? ""),
+      text: String(p.text ?? ""),
+      editorial_headline: typeof p.editorial_headline === "string" ? p.editorial_headline : null,
+      event_type: eventType,
+      state: typeof p.state === "string" ? p.state : null,
+      district: typeof p.district === "string" ? p.district : null,
+      lat: feature.geometry.coordinates[1],
+      lon: feature.geometry.coordinates[0],
+      created_at: String(p.created_at ?? new Date().toISOString()),
+      source: String(p.source ?? "citizen_app"),
+      trust_score: typeof p.trust_score === "number" ? p.trust_score : null,
+      corroboration_count: Number(p.corroboration_count ?? 0),
+      status: (p.status as ReportStatus) ?? "pending",
+      audit_reason: typeof p.audit_reason === "string" ? p.audit_reason : null,
+      pipeline: p.pipeline && typeof p.pipeline === "object"
+        ? { ...(p.pipeline as Record<string, unknown>), event_type: eventType ?? undefined }
+        : null,
+    },
+  };
+}
+
+function normalizeClusters(payload: { features?: BackendFeature[] }): ClusterCollection {
+  return {
+    type: "FeatureCollection",
+    features: (payload.features ?? []).map(normalizeFeature),
+  };
+}
+
+async function fetchJson<T>(path: string): Promise<T> {
+  const response = await fetch(`/api/backend/${path}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Request failed (${response.status})`);
+  return response.json() as Promise<T>;
+}
+
 const MOCK_REGIONS: Region[] = [
   { state: "Delhi", districts: ["New Delhi", "North Delhi", "South Delhi"] },
   { state: "Maharashtra", districts: ["Mumbai", "Pune", "Nagpur"] },
@@ -16,6 +84,13 @@ const MOCK_REGIONS: Region[] = [
   { state: "Gujarat", districts: ["Ahmedabad", "Surat", "Rajkot"] },
   { state: "Odisha", districts: ["Bhubaneswar", "Cuttack", "Puri"] },
   { state: "Himachal Pradesh", districts: ["Shimla", "Manali", "Kullu"] },
+  { state: "Bihar", districts: ["Patna", "Gaya", "Muzaffarpur"] },
+  { state: "Telangana", districts: ["Hyderabad", "Warangal", "Nizamabad"] },
+  { state: "Punjab", districts: ["Amritsar", "Ludhiana", "Patiala"] },
+  { state: "Jammu and Kashmir", districts: ["Srinagar", "Ramban", "Jammu"] },
+  { state: "Andhra Pradesh", districts: ["Anantapur", "Visakhapatnam", "Vijayawada"] },
+  { state: "Goa", districts: ["North Goa", "South Goa"] },
+  { state: "Jharkhand", districts: ["Ranchi", "Jamshedpur", "Dhanbad"] },
 ];
 
 function minsAgo(m: number): string {
@@ -453,6 +528,210 @@ const MOCK_REPORTS: MockReport[] = [
     audit_reason: "4 corroborating reports. District collector confirms flash flood.",
     pipeline: { event_type: "flood", event_conf: 0.96, corroboration_count: 4 },
   },
+  {
+    id: "rpt-025",
+    text: "Heavy rain has flooded low-lying lanes in Patna near the Ganga. Residents are using boats to cross the street and power is intermittent.",
+    editorial_headline: "Monsoon rain floods Patna lanes as Ganga-side neighbourhoods lose power",
+    event_type: "flood",
+    state: "Bihar",
+    district: "Patna",
+    lat: 25.5941,
+    lon: 85.1376,
+    created_at: minsAgo(16),
+    source: "citizen_app",
+    trust_score: 0.864,
+    corroboration_count: 3,
+    status: "verified",
+    audit_reason: "3 corroborating reports. Municipal control room confirms waterlogging.",
+    pipeline: { event_type: "flood", event_conf: 0.91, corroboration_count: 3 },
+  },
+  {
+    id: "rpt-026",
+    text: "A dense smoke and fog layer has settled over Ahmedabad before sunrise. Visibility is below 100 metres on the ring road.",
+    editorial_headline: "Dense fog and smog slow Ahmedabad traffic before sunrise",
+    event_type: "fog",
+    state: "Gujarat",
+    district: "Ahmedabad",
+    lat: 23.0225,
+    lon: 72.5714,
+    created_at: minsAgo(28),
+    source: "citizen_app",
+    trust_score: 0.793,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. Traffic police confirms reduced visibility.",
+    pipeline: { event_type: "fog", event_conf: 0.86, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-027",
+    text: "A squall line is moving across Hyderabad with intense lightning and gusts. Several neighbourhoods have lost power.",
+    editorial_headline: "Lightning squall crosses Hyderabad as neighbourhoods report power cuts",
+    event_type: "thunderstorm",
+    state: "Telangana",
+    district: "Hyderabad",
+    lat: 17.385,
+    lon: 78.4867,
+    created_at: minsAgo(39),
+    source: "citizen_app",
+    trust_score: 0.847,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. State emergency operations centre confirms storm activity.",
+    pipeline: { event_type: "thunderstorm", event_conf: 0.9, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-028",
+    text: "A dry, hot wind is blowing through Amritsar. The temperature reached 44°C and outdoor workers have moved into shaded areas.",
+    editorial_headline: "Amritsar heat wave pushes temperatures to 44°C",
+    event_type: "heatwave",
+    state: "Punjab",
+    district: "Amritsar",
+    lat: 31.634,
+    lon: 74.8723,
+    created_at: hrsAgo(2),
+    source: "citizen_app",
+    trust_score: 0.818,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. Local weather station records 43.8°C.",
+    pipeline: { event_type: "heatwave", event_conf: 0.88, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-029",
+    text: "A dust storm has crossed Bikaner, reducing visibility on the Jaipur highway. Sand is collecting around roadside shops.",
+    editorial_headline: "Dust storm sweeps Bikaner highway and cuts visibility",
+    event_type: "dust_storm",
+    state: "Rajasthan",
+    district: "Bikaner",
+    lat: 28.0229,
+    lon: 73.3119,
+    created_at: hrsAgo(3),
+    source: "citizen_app",
+    trust_score: 0.786,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. Highway patrol confirms low visibility.",
+    pipeline: { event_type: "dust_storm", event_conf: 0.84, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-030",
+    text: "Rockfall has blocked one lane on the Jammu-Srinagar highway near Ramban. Traffic is being held while crews clear the road.",
+    editorial_headline: "Rockfall blocks Jammu-Srinagar highway near Ramban",
+    event_type: "landslide",
+    state: "Jammu and Kashmir",
+    district: "Ramban",
+    lat: 33.2425,
+    lon: 75.2405,
+    created_at: hrsAgo(4),
+    source: "citizen_app",
+    trust_score: 0.856,
+    corroboration_count: 3,
+    status: "verified",
+    audit_reason: "3 corroborating reports. Highway control room confirms lane closure.",
+    pipeline: { event_type: "landslide", event_conf: 0.93, corroboration_count: 3 },
+  },
+  {
+    id: "rpt-031",
+    text: "The Mahanadi is rising near Cuttack after two days of rain. Villages along the embankment have started moving livestock to higher ground.",
+    editorial_headline: "Mahanadi rises near Cuttack as villages move livestock uphill",
+    event_type: "flood",
+    state: "Odisha",
+    district: "Cuttack",
+    lat: 20.4625,
+    lon: 85.883,
+    created_at: hrsAgo(5),
+    source: "citizen_app",
+    trust_score: 0.882,
+    corroboration_count: 3,
+    status: "verified",
+    audit_reason: "3 corroborating reports. Water resources officials confirm rising river levels.",
+    pipeline: { event_type: "flood", event_conf: 0.92, corroboration_count: 3 },
+  },
+  {
+    id: "rpt-032",
+    text: "Rainfall has stopped in Anantapur but wells and tanks remain dry. Farmers are delaying sowing for the second week.",
+    editorial_headline: "Anantapur farmers delay sowing as drought conditions persist",
+    event_type: "drought",
+    state: "Andhra Pradesh",
+    district: "Anantapur",
+    lat: 14.6819,
+    lon: 77.6006,
+    created_at: hrsAgo(6),
+    source: "citizen_app",
+    trust_score: 0.746,
+    corroboration_count: 1,
+    status: "verified",
+    audit_reason: "1 corroborating report. Agriculture officers confirm below-normal rainfall.",
+    pipeline: { event_type: "drought", event_conf: 0.8, corroboration_count: 1 },
+  },
+  {
+    id: "rpt-033",
+    text: "A cold wave has pushed the temperature in Srinagar below zero. Dal Lake has a thin ice layer and morning flights are delayed.",
+    editorial_headline: "Srinagar wakes below zero as cold wave delays morning flights",
+    event_type: "coldwave",
+    state: "Jammu and Kashmir",
+    district: "Srinagar",
+    lat: 34.0837,
+    lon: 74.7973,
+    created_at: hrsAgo(7),
+    source: "citizen_app",
+    trust_score: 0.841,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. Airport operations confirm weather-related delays.",
+    pipeline: { event_type: "coldwave", event_conf: 0.9, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-034",
+    text: "Cyclonic winds are battering the coast near Panaji. Fishing boats remain in harbour and waves are overtopping the promenade.",
+    editorial_headline: "Cyclonic winds keep Goa boats in harbour as waves cross the promenade",
+    event_type: "cyclone",
+    state: "Goa",
+    district: "North Goa",
+    lat: 15.4909,
+    lon: 73.8278,
+    created_at: hrsAgo(8),
+    source: "citizen_app",
+    trust_score: 0.879,
+    corroboration_count: 3,
+    status: "verified",
+    audit_reason: "3 corroborating reports. Port authorities confirm rough sea conditions.",
+    pipeline: { event_type: "cyclone", event_conf: 0.92, corroboration_count: 3 },
+  },
+  {
+    id: "rpt-035",
+    text: "A severe thunderstorm has crossed Ranchi with hail and sharp wind gusts. Tin roofs were damaged in two neighbourhoods.",
+    editorial_headline: "Hailstorm crosses Ranchi and damages roofs across two neighbourhoods",
+    event_type: "thunderstorm",
+    state: "Jharkhand",
+    district: "Ranchi",
+    lat: 23.3441,
+    lon: 85.3096,
+    created_at: hrsAgo(9),
+    source: "citizen_app",
+    trust_score: 0.824,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. District control room confirms hail and wind damage.",
+    pipeline: { event_type: "thunderstorm", event_conf: 0.89, corroboration_count: 2 },
+  },
+  {
+    id: "rpt-036",
+    text: "Dense fog has covered the Brahmaputra valley near Dibrugarh. Visibility is poor on the airport road and ferries are delayed.",
+    editorial_headline: "Dense fog delays ferries and airport traffic near Dibrugarh",
+    event_type: "fog",
+    state: "Assam",
+    district: "Dibrugarh",
+    lat: 27.4728,
+    lon: 94.912,
+    created_at: hrsAgo(10),
+    source: "citizen_app",
+    trust_score: 0.799,
+    corroboration_count: 2,
+    status: "verified",
+    audit_reason: "2 corroborating reports. Transport officials confirm visibility disruption.",
+    pipeline: { event_type: "fog", event_conf: 0.87, corroboration_count: 2 },
+  },
 ];
 
 const MOCK_QUEUE: Report[] = [
@@ -577,6 +856,31 @@ function buildStats(reports: MockReport[]): DeskStats {
   };
 }
 
+function buildLivePublicStats(
+  clusters: ClusterCollection,
+  summary: { today?: number; today_verified?: number; verified_live?: number; flagged?: number; rejected?: number },
+): DeskStats {
+  const stateCounts = new Map<string, number>();
+  for (const feature of clusters.features) {
+    const state = feature.properties.state;
+    if (state) stateCounts.set(state, (stateCounts.get(state) ?? 0) + 1);
+  }
+  return {
+    queue_depth: 0,
+    today_total: summary.today ?? clusters.features.length,
+    today_verified: summary.today_verified ?? summary.verified_live ?? clusters.features.length,
+    velocity: [],
+    by_state: [...stateCounts.entries()]
+      .map(([state, count]) => ({ state, count }))
+      .sort((a, b) => b.count - a.count),
+    status_breakdown: {
+      verified: summary.verified_live ?? clusters.features.length,
+      ai_flagged: summary.flagged ?? 0,
+      auto_rejected: summary.rejected ?? 0,
+    },
+  };
+}
+
 interface PublicDataState {
   clusters: ClusterCollection;
   stats: DeskStats | null;
@@ -588,17 +892,33 @@ interface PublicDataState {
 
 export function usePublicData(): PublicDataState {
   const [clusters, setClusters] = useState<ClusterCollection>(() =>
-    buildClusters(MOCK_REPORTS),
+    DATA_MODE === "live" ? { type: "FeatureCollection", features: [] } : buildClusters(MOCK_REPORTS),
   );
-  const [stats, setStats] = useState<DeskStats | null>(() => buildStats(MOCK_REPORTS));
+  const [stats, setStats] = useState<DeskStats | null>(() =>
+    DATA_MODE === "live" ? null : buildStats(MOCK_REPORTS),
+  );
+  const [regions, setRegions] = useState<Region[]>(MOCK_REGIONS);
   const [loadState, setLoadState] = useState<"loading" | "ready" | "error">("loading");
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     try {
       setLoadState((s) => (s === "ready" ? "ready" : "loading"));
-      setClusters(buildClusters(MOCK_REPORTS));
-      setStats(buildStats(MOCK_REPORTS));
+      if (DATA_MODE === "live") {
+        const [clusterPayload, summary, liveRegions] = await Promise.all([
+          fetchJson<{ features?: BackendFeature[] }>("public/clusters"),
+          fetchJson<{ today?: number; today_verified?: number; verified_live?: number; flagged?: number; rejected?: number }>("public/summary"),
+          fetchJson<Region[]>("public/regions"),
+        ]);
+        const liveClusters = normalizeClusters(clusterPayload);
+        setClusters(liveClusters);
+        setStats(buildLivePublicStats(liveClusters, summary));
+        setRegions(liveRegions);
+      } else {
+        setClusters(buildClusters(MOCK_REPORTS));
+        setStats(buildStats(MOCK_REPORTS));
+        setRegions(MOCK_REGIONS);
+      }
       setLoadState("ready");
       setError(null);
     } catch (e) {
@@ -609,12 +929,15 @@ export function usePublicData(): PublicDataState {
 
   useEffect(() => {
     void load();
+    if (DATA_MODE !== "live") return;
+    const timer = window.setInterval(() => void load(), 5000);
+    return () => window.clearInterval(timer);
   }, [load]);
 
   return {
     clusters,
     stats,
-    regions: MOCK_REGIONS,
+    regions,
     loadState,
     error,
     refresh: load,
@@ -632,11 +955,13 @@ interface DeskDataState {
 }
 
 export function useDeskData(): DeskDataState {
-  const [queue, setQueue] = useState<Report[]>(MOCK_QUEUE);
+  const [queue, setQueue] = useState<Report[]>(DATA_MODE === "live" ? [] : MOCK_QUEUE);
   const [verified, setVerified] = useState<ClusterCollection>(() =>
-    buildClusters(MOCK_REPORTS),
+    DATA_MODE === "live" ? { type: "FeatureCollection", features: [] } : buildClusters(MOCK_REPORTS),
   );
-  const [stats, setStats] = useState<DeskStats | null>(() => buildStats(MOCK_REPORTS));
+  const [stats, setStats] = useState<DeskStats | null>(() =>
+    DATA_MODE === "live" ? null : buildStats(MOCK_REPORTS),
+  );
   const [loadState, setLoadState] = useState<"loading" | "ready" | "error">("loading");
   const [error, setError] = useState<string | null>(null);
   const mountedRef = useRef(true);
@@ -644,9 +969,20 @@ export function useDeskData(): DeskDataState {
   const load = useCallback(async () => {
     try {
       setLoadState((s) => (s === "ready" ? "ready" : "loading"));
-      setQueue(MOCK_QUEUE);
-      setVerified(buildClusters(MOCK_REPORTS));
-      setStats(buildStats(MOCK_REPORTS));
+      if (DATA_MODE === "live") {
+        const [queuePayload, clusterPayload, liveStats] = await Promise.all([
+          fetchJson<{ queue?: BackendFeature[] }>("admin/queue"),
+          fetchJson<{ features?: BackendFeature[] }>("public/clusters"),
+          fetchJson<DeskStats>("admin/stats"),
+        ]);
+        setQueue((queuePayload.queue ?? []).map((feature) => normalizeFeature(feature).properties));
+        setVerified(normalizeClusters(clusterPayload));
+        setStats(liveStats);
+      } else {
+        setQueue(MOCK_QUEUE);
+        setVerified(buildClusters(MOCK_REPORTS));
+        setStats(buildStats(MOCK_REPORTS));
+      }
       if (mountedRef.current) {
         setLoadState("ready");
         setError(null);
@@ -662,7 +998,12 @@ export function useDeskData(): DeskDataState {
   useEffect(() => {
     mountedRef.current = true;
     void load();
-    return () => { mountedRef.current = false; };
+    if (DATA_MODE !== "live") return () => { mountedRef.current = false; };
+    const timer = window.setInterval(() => void load(), 5000);
+    return () => {
+      mountedRef.current = false;
+      window.clearInterval(timer);
+    };
   }, [load]);
 
   return {

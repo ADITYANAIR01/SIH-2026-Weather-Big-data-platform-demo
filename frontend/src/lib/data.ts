@@ -2,11 +2,9 @@ import type { ReportResult } from "./types";
 
 export type DataMode = "mock" | "live";
 
-// eslint-disable-next-line prefer-const
-let _dataMode: DataMode = "mock";
-export const dataMode: DataMode = _dataMode;
+export const dataMode: DataMode = process.env.NEXT_PUBLIC_DATA_MODE === "live" ? "live" : "mock";
 
-export const modeLabel = "MOCK" as string;
+export const modeLabel = dataMode === "live" ? "LIVE" : "MOCK";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
 
@@ -28,7 +26,7 @@ export async function submitReport(payload: {
       is_duplicate: false,
     };
   }
-  const res = await fetch(`${API_BASE}/api/reports`, {
+  const res = await fetch(`${API_BASE}/api/backend/report`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -42,10 +40,10 @@ export async function deskAction(
   body: { action: "approve" | "reject" | "promote"; headline?: string; note: string },
 ): Promise<void> {
   if (dataMode === "mock") return;
-  const res = await fetch(`${API_BASE}/api/reports/${id}/action`, {
-    method: "POST",
+  const res = await fetch(`${API_BASE}/api/backend/admin/queue/${id}`, {
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ action: body.action === "promote" ? "approve" : body.action }),
   });
   if (!res.ok) throw new Error(`Action failed: ${res.status}`);
 }
